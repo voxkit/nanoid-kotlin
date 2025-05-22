@@ -20,11 +20,17 @@ kotlin {
     }
 
     jvm()
+
     iosArm64()
     iosX64()
     iosSimulatorArm64()
     macosX64()
     macosArm64()
+    watchosArm64()
+    tvosArm64()
+
+    linuxX64()
+    linuxArm64()
 
     js {
         useCommonJs()
