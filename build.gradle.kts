@@ -23,6 +23,16 @@ kotlin {
     macosX64()
     macosArm64()
 
+    js {
+        useCommonJs()
+        browser {
+            testTask {
+                useKarma { useChromeHeadless() }
+            }
+        }
+        nodejs()
+    }
+
     applyDefaultHierarchyTemplate()
 
     sourceSets {
