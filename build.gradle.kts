@@ -1,3 +1,6 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -33,6 +36,15 @@ kotlin {
         nodejs()
     }
 
+    wasmJs {
+        browser {
+            testTask {
+                useKarma { useChromeHeadless() }
+            }
+        }
+        nodejs()
+    }
+
     applyDefaultHierarchyTemplate()
 
     sourceSets {
@@ -46,6 +58,10 @@ kotlin {
 
         androidMain {
             dependsOn(jvmAndAndroidMain)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(libs.kotlin.browser)
         }
 
         commonTest.dependencies {

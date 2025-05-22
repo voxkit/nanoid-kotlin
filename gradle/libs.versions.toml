@@ -1,10 +1,13 @@
 [versions]
 kotlin = "2.1.21"
+kotlin-browser = "0.3"
+
 agp = "8.9.3"
 minSdk = "21"
 compileSdk = "35"
 
 [libraries]
+kotlin-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlin-browser" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 [plugins]
