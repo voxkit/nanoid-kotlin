@@ -13,8 +13,8 @@ class NanoIdTest {
         println("Generated NanoId 1: $id1")
         println("Generated NanoId 2: $id2")
 
-        assertEquals(21, id1.length, "NanoId length should be 21")
-        assertEquals(21, id2.length, "NanoId length should be 21")
+        assertEquals(NanoId.DEFAULT_SIZE, id1.length, "NanoId length should be 21")
+        assertEquals(NanoId.DEFAULT_SIZE, id2.length, "NanoId length should be 21")
         assertNotEquals(id1, id2, "Generated NanoIds should be unique")
     }
 }

@@ -21,6 +21,9 @@
 
 package io.voxkit.kotlin.nanoid
 
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
+import kotlin.jvm.JvmSynthetic
 import kotlin.math.abs
 import kotlin.math.ceil
 
@@ -37,6 +40,9 @@ import kotlin.math.ceil
  */
 public object NanoId {
 
+    public const val DEFAULT_SIZE: Int = 21
+    public const val DEFAULT_ALPHABET: String = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
     /**
      * Generates a random string based on specified or default parameters.
      *
@@ -50,8 +56,8 @@ public object NanoId {
     @JvmOverloads
     @JvmStatic
     public fun generate(
-        size: Int = 21,
-        alphabet: String = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        size: Int = DEFAULT_SIZE,
+        alphabet: String = DEFAULT_ALPHABET,
         additionalBytesFactor: Double = 1.6,
         random: Random = platformRandom()
     ): String {
@@ -122,7 +128,7 @@ public object NanoId {
      */
     @JvmStatic
     public fun calculateMask(alphabet: String): Int =
-        (2 shl (Integer.SIZE - 1 - Integer.numberOfLeadingZeros(alphabet.length - 1))) - 1
+        (2 shl (0.countLeadingZeroBits() - 1 - (alphabet.length - 1).countLeadingZeroBits())) - 1
 
     /**
      * Calculates the number of random bytes to generate in each iteration for a given size and alphabet.
