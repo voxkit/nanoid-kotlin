@@ -1,6 +1,7 @@
 package io.voxkit.kotlin.nanoid
 
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
@@ -8,7 +9,7 @@ import platform.Security.SecRandomCopyBytes
 import platform.Security.errSecSuccess
 import platform.Security.kSecRandomDefault
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 public actual fun platformRandom(): Random = object : Random {
     override fun nextBytes(buffer: ByteArray) {
         if (buffer.isEmpty()) return
