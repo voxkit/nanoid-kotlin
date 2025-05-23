@@ -3,7 +3,7 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.util.*
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.ktlint)
@@ -19,7 +19,7 @@ versionPropertiesFile.takeIf { it.exists() }?.let {
     versionProperties.load(it.inputStream())
 }
 
-group = "io.voxkit.kotlin.nanoid"
+group = "io.voxkit.kotlin"
 version = versionProperties["snapshot.version"]?.let { "$it".removePrefix("v") } ?: "0.0.0"
 
 logger.lifecycle("Selected version name: ${project.version}")
