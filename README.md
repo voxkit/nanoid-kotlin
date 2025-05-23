@@ -1,11 +1,10 @@
-# Nano ID for Kotlin
+# Nano ID for Kotlin Multiplatform
 
-<a href="https://github.com/viascom/nanoid-kotlin/releases"><img src="https://img.shields.io/maven-central/v/io.viascom.nanoid/nanoid" alt="Maven central"></a>
-<img src="https://img.shields.io/badge/Kotlin-1.9.22-%238052ff?logo=kotlin" alt="Kotlin Version">
-<img src="https://img.shields.io/badge/Java-17-%23437291?logo=openjdk" alt="Java Version">
+<a href="https://github.com/voxkit/nanoid-kotlin/releases"><img src="https://img.shields.io/maven-central/v/io.voxkit.nanoid/nanoid" alt="Maven central"></a>
+<img src="https://img.shields.io/badge/Kotlin-2.1.21-%238052ff?logo=kotlin" alt="Kotlin Version">
 <a href="http://www.apache.org/licenses/"><img src="https://img.shields.io/badge/license-Apache_2.0-blue.svg" alt="license Apache 2.0"></a>
 
-_Inspired by the following parent project: [ai/nanoid](https://github.com/ai/nanoid)_
+_Forked and migrated to Kotlin Multiplatform from original Kotlin implementation: [viascom/nanoid-kotlin](https://github.com/viascom/nanoid-kotlin)_
 
 <img src="./logo.svg" align="right" alt="Nano ID logo by Anton Lovchikov" width="180" height="94">
 
@@ -14,7 +13,7 @@ A tiny, secure, URL-friendly, unique string ID generator for Kotlin.
 > “An amazing level of senseless perfectionism, which is simply impossible not to respect.”
 
 * **Small.** Just a simple Kotlin class.
-* **Safe.** It uses SecureRandom random generator.
+* **Safe.** It uses `SecureRandom` random generator for JVM/Android, `SecRandomCopyBytes` for Apple, `crypto.getRandomValues` for JS/WasmJS, `/dev/urandom` for Linux.
 * **Short IDs.** It uses a larger alphabet than UUID (`A-Za-z0-9_-`). So ID size was reduced from 36 to 21 symbols.
 * **Portable**. Nano ID was ported
   to [over 20 programming languages](https://github.com/ai/nanoid/blob/main/README.md#other-programming-languages).
@@ -24,19 +23,10 @@ A tiny, secure, URL-friendly, unique string ID generator for Kotlin.
 Add nanoid-kotlin as a dependency to your project.
 
 Gradle:
-```gradle
+```gradle.kts
 dependencies {
-  implementation 'io.viascom.nanoid:nanoid:1.0.1'
+  implementation("io.voxkit.kotlin:nanoid:1.0.0")
 }
-```
-
-Maven:
-```xml
-<dependency>
-    <groupId>io.viascom.nanoid</groupId>
-    <artifactId>nanoid</artifactId>
-    <version>1.0.1</version>
-</dependency>
 ```
 
 Start using it:
@@ -109,8 +99,9 @@ Your active participation 🤝 is a cornerstone of **nanoid-kotlin**. Thank you 
 
 * **Patrick Bösch** - *Initial work* - [itsmefox](https://github.com/itsmefox)
 * **Nikola Stanković** - *Initial work* - [nik-sta](https://github.com/nik-sta)
+* **Alex Shepeliev** - *Porting to Kotlin Multiplatform* - [shepeliev](https://github.com/shepeliev)
 
-See also the list of [contributors](https://github.com/viascom/nanoid-kotlin/contributors) who participated in this
+See also the list of [contributors](https://github.com/voxkit/nanoid-kotlin/contributors) who participated in this
 project. 💕
 
 ## License

@@ -17,8 +17,8 @@ public interface Random {
  * Returns a platform-specific implementation of [Random].
  *
  * - JVM/Android: Uses `java.security.SecureRandom`.
- * - JS/WasmJS: Uses `crypto.getRandomValues`.
  * - Apple (iOS/macOS/watchOS): Uses `SecRandomCopyBytes`.
+ * - JS/WasmJS: Uses `crypto.getRandomValues`.
  * - Linux: Reads from `/dev/urandom`.
  */
 public expect fun platformRandom(): Random
