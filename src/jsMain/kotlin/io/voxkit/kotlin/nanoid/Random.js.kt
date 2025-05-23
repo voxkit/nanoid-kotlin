@@ -5,6 +5,7 @@ private external object Crypto {
     fun getRandomValues(bytes: ByteArray)
 }
 
-public actual fun platformRandom(): Random = object : Random {
-    override fun nextBytes(buffer: ByteArray) = Crypto.getRandomValues(buffer)
-}
+public actual fun platformRandom(): Random =
+    object : Random {
+        override fun nextBytes(buffer: ByteArray) = Crypto.getRandomValues(buffer)
+    }

@@ -39,7 +39,6 @@ import kotlin.math.ceil
  * ```
  */
 public object NanoId {
-
     public const val DEFAULT_SIZE: Int = 21
     public const val DEFAULT_ALPHABET: String = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -59,7 +58,7 @@ public object NanoId {
         size: Int = DEFAULT_SIZE,
         alphabet: String = DEFAULT_ALPHABET,
         additionalBytesFactor: Double = 1.6,
-        random: Random = platformRandom()
+        random: Random = platformRandom(),
     ): String {
         require(!(alphabet.isEmpty() || alphabet.length >= 256)) { "alphabet must contain between 1 and 255 symbols." }
         require(size > 0) { "size must be greater than zero." }

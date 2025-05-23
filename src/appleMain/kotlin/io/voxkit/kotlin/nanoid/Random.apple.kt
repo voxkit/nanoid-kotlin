@@ -10,20 +10,22 @@ import platform.Security.errSecSuccess
 import platform.Security.kSecRandomDefault
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
-public actual fun platformRandom(): Random = object : Random {
-    override fun nextBytes(buffer: ByteArray) {
-        if (buffer.isEmpty()) return
+public actual fun platformRandom(): Random =
+    object : Random {
+        override fun nextBytes(buffer: ByteArray) {
+            if (buffer.isEmpty()) return
 
-        buffer.usePinned { pin ->
-            val status = SecRandomCopyBytes(
-                rnd = kSecRandomDefault,
-                count = buffer.size.convert(),
-                bytes = pin.addressOf(0),
-            )
+            buffer.usePinned { pin ->
+                val status =
+                    SecRandomCopyBytes(
+                        rnd = kSecRandomDefault,
+                        count = buffer.size.convert(),
+                        bytes = pin.addressOf(0),
+                    )
 
-            if (status != errSecSuccess) {
-                error("Failed to generate random bytes. Error code: $status")
+                if (status != errSecSuccess) {
+                    error("Failed to generate random bytes. Error code: $status")
+                }
             }
         }
     }
-}
