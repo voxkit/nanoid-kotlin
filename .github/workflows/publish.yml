@@ -2,50 +2,45 @@ name: Publish release
 
 on:
   release:
-    types: [ published ]
+    types: [released]
+  workflow_dispatch:
 
 jobs:
-  publish-release:
-    name: Publish nanoid-kotlin Artifacts
-    runs-on: ubuntu-latest
-
+  publish:
+    runs-on: macos-latest
     steps:
-      - name: Setup timezone
-        run: |
-          sudo timedatectl set-timezone Europe/Zurich
-          timedatectl
+      - uses: actions/checkout@v4
 
-      - name: Check out the repo
-        uses: actions/checkout@v4
-
-      - name: Set up Java JDK
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '19'
-          java-package: jdk
-          architecture: x64
-          cache: 'gradle'
-          check-latest: false
+          distribution: 'temurin'
+          java-version: 17
+          cache: gradle
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4.4.0
 
-      - name: Decode GPG Key
-        run: |
-          mkdir -p ~/.gradle/
-          echo "${{secrets.SIGNING_SECRET_KEY_RING_FILE}}" > ~/.gradle/secring.gpg.b64
-          base64 -d ~/.gradle/secring.gpg.b64 > ~/.gradle/secring.gpg
-
-      - name: Publish to ossh
-        run: ./gradlew publish -Psigning.keyId=${{secrets.SIGNING_KEY_ID}} -Psigning.password='${{secrets.SIGNING_PASSWORD}}' -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg) --warn --stacktrace
-        env:
-          OSSRH_USERNAME: ${{secrets.OSSRH_USERNAME}}
-          OSSRH_PASSWORD: ${{secrets.OSSRH_PASSWORD}}
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Setup .konan cache
+        uses: actions/cache@v4
         with:
-          name: build-libs
-          path: build/libs
-          retention-days: 90
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-  
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          log-accepted-android-sdk-licenses: false
+
+      - name: Extract release version from tag
+        run: ./version-up.sh --prefix v --stay
+
+      - name: Publish to MavenCentral
+        run: ./gradlew publish
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.VOXKIT_MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.VOXKIT_MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.VOXKIT_GPG_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.VOXKIT_GPG_PASSWORD }}
