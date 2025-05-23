@@ -48,7 +48,7 @@ public object NanoId {
      * @param size The desired length of the generated string. Default is 21.
      * @param alphabet The set of characters to choose from for generating the string. Default includes alphanumeric characters along with "_" and "-".
      * @param additionalBytesFactor The additional bytes factor used for calculating the step size. Default is 1.6.
-     * @param random The random number generator to use. Default is `SecureRandom` for JVM/Android.
+     * @param random The random number generator to use. Default is platform-specific implementation returned by [platformRandom].
      * @return The generated random string.
      * @throws IllegalArgumentException if the alphabet is empty or larger than 255 characters, or if the size is not greater than zero.
      */
@@ -79,7 +79,7 @@ public object NanoId {
      * @param alphabet The set of characters to choose from for generating the string.
      * @param mask The mask used for mapping random bytes to alphabet indices. Should be `(2^n) - 1` where `n` is a power of 2 less than or equal to the alphabet size.
      * @param step The number of random bytes to generate in each iteration. A larger value may speed up the function but increase memory usage.
-     * @param random The random number generator. Default is `SecureRandom` for JVM/Android.
+     * @param random The random number generator. Default is platform-specific implementation returned by [platformRandom].
      * @return The generated optimized string.
      */
     @JvmOverloads
