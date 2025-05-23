@@ -19,11 +19,11 @@
  * under the License.
  */
 
-package io.viascom.nanoid
+package io.voxkit.kotlin.nanoid
 
-import org.jetbrains.annotations.NotNull
-import java.security.SecureRandom
-import java.util.*
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
+import kotlin.jvm.JvmSynthetic
 import kotlin.math.abs
 import kotlin.math.ceil
 
@@ -38,7 +38,9 @@ import kotlin.math.ceil
  * val id = NanoId.generate()
  * ```
  */
-object NanoId {
+public object NanoId {
+    public const val DEFAULT_SIZE: Int = 21
+    public const val DEFAULT_ALPHABET: String = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     /**
      * Generates a random string based on specified or default parameters.
@@ -46,21 +48,17 @@ object NanoId {
      * @param size The desired length of the generated string. Default is 21.
      * @param alphabet The set of characters to choose from for generating the string. Default includes alphanumeric characters along with "_" and "-".
      * @param additionalBytesFactor The additional bytes factor used for calculating the step size. Default is 1.6.
-     * @param random The random number generator to use. Default is `SecureRandom`.
+     * @param random The random number generator to use. Default is platform-specific implementation returned by [platformRandom].
      * @return The generated random string.
      * @throws IllegalArgumentException if the alphabet is empty or larger than 255 characters, or if the size is not greater than zero.
      */
     @JvmOverloads
     @JvmStatic
-    fun generate(
-        @NotNull
-        size: Int = 21,
-        @NotNull
-        alphabet: String = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        @NotNull
+    public fun generate(
+        size: Int = DEFAULT_SIZE,
+        alphabet: String = DEFAULT_ALPHABET,
         additionalBytesFactor: Double = 1.6,
-        @NotNull
-        random: Random = SecureRandom()
+        random: Random = platformRandom(),
     ): String {
         require(!(alphabet.isEmpty() || alphabet.length >= 256)) { "alphabet must contain between 1 and 255 symbols." }
         require(size > 0) { "size must be greater than zero." }
@@ -81,12 +79,18 @@ object NanoId {
      * @param alphabet The set of characters to choose from for generating the string.
      * @param mask The mask used for mapping random bytes to alphabet indices. Should be `(2^n) - 1` where `n` is a power of 2 less than or equal to the alphabet size.
      * @param step The number of random bytes to generate in each iteration. A larger value may speed up the function but increase memory usage.
-     * @param random The random number generator. Default is `SecureRandom`.
+     * @param random The random number generator. Default is platform-specific implementation returned by [platformRandom].
      * @return The generated optimized string.
      */
     @JvmOverloads
     @JvmStatic
-    fun generateOptimized(@NotNull size: Int, @NotNull alphabet: String, @NotNull mask: Int, @NotNull step: Int, @NotNull random: Random = SecureRandom()): String {
+    public fun generateOptimized(
+        size: Int,
+        alphabet: String,
+        mask: Int,
+        step: Int,
+        random: Random = platformRandom(),
+    ): String {
         val idBuilder = StringBuilder(size)
         val bytes = ByteArray(step)
         while (true) {
@@ -110,7 +114,7 @@ object NanoId {
      * @return The additional bytes factor, rounded to two decimal places.
      */
     @JvmStatic
-    fun calculateAdditionalBytesFactor(@NotNull alphabet: String): Double {
+    public fun calculateAdditionalBytesFactor(alphabet: String): Double {
         val mask = calculateMask(alphabet)
         return (1 + abs((mask - alphabet.length.toDouble()) / alphabet.length)).round(2)
     }
@@ -122,7 +126,8 @@ object NanoId {
      * @return The calculated mask value.
      */
     @JvmStatic
-    fun calculateMask(@NotNull alphabet: String) = (2 shl (Integer.SIZE - 1 - Integer.numberOfLeadingZeros(alphabet.length - 1))) - 1
+    public fun calculateMask(alphabet: String): Int =
+        (2 shl (0.countLeadingZeroBits() - 1 - (alphabet.length - 1).countLeadingZeroBits())) - 1
 
     /**
      * Calculates the number of random bytes to generate in each iteration for a given size and alphabet.
@@ -134,8 +139,11 @@ object NanoId {
      */
     @JvmStatic
     @JvmOverloads
-    fun calculateStep(@NotNull size: Int, @NotNull alphabet: String, @NotNull additionalBytesFactor: Double = calculateAdditionalBytesFactor(alphabet)) =
-        ceil(additionalBytesFactor * calculateMask(alphabet) * size / alphabet.length).toInt()
+    public fun calculateStep(
+        size: Int,
+        alphabet: String,
+        additionalBytesFactor: Double = calculateAdditionalBytesFactor(alphabet),
+    ): Int = ceil(additionalBytesFactor * calculateMask(alphabet) * size / alphabet.length).toInt()
 
     @JvmSynthetic
     internal fun Double.round(decimals: Int): Double {

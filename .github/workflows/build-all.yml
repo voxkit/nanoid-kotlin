@@ -1,0 +1,26 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+  pull_request:
+    paths-ignore:
+      - "**/*.md"
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    uses: ./.github/workflows/lint.yml
+
+  build-linux:
+    name: Linux
+    uses: ./.github/workflows/build-linux.yml
+
+  build-macos:
+    name: macOS
+    uses: ./.github/workflows/build-macos.yml
