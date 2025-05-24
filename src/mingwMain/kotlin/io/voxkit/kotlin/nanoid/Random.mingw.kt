@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class)
 @file:Suppress("ktlint:standard:no-wildcard-imports")
 
 package io.voxkit.kotlin.nanoid
