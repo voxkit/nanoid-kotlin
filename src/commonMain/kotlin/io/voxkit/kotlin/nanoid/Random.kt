@@ -20,5 +20,6 @@ public interface Random {
  * - Apple (iOS/macOS/watchOS): Uses `SecRandomCopyBytes`.
  * - JS/WasmJS: Uses `crypto.getRandomValues`.
  * - Linux: Reads from `/dev/urandom`.
+ * - Windows: Uses `BCryptGenRandom` from `Bcrypt.dll`.
  */
 public expect fun platformRandom(): Random

@@ -1,4 +1,4 @@
-name: Build Linux
+name: Build on Linux
 
 on:
   workflow_call:

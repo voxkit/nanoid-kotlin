@@ -13,7 +13,8 @@ A tiny, secure, URL-friendly, unique string ID generator for Kotlin.
 > “An amazing level of senseless perfectionism, which is simply impossible not to respect.”
 
 * **Small.** Just a simple Kotlin class.
-* **Safe.** It uses `SecureRandom` random generator for JVM/Android, `SecRandomCopyBytes` for Apple, `crypto.getRandomValues` for JS/WasmJS, `/dev/urandom` for Linux.
+* **Safe.** It uses `SecureRandom` random generator for JVM/Android, `SecRandomCopyBytes` for Apple, 
+`crypto.getRandomValues` for JS/WasmJS, `/dev/urandom` for Linux, `BCryptGenRandom` for Windows.
 * **Short IDs.** It uses a larger alphabet than UUID (`A-Za-z0-9_-`). So ID size was reduced from 36 to 21 symbols.
 * **Portable**. Nano ID was ported
   to [over 20 programming languages](https://github.com/ai/nanoid/blob/main/README.md#other-programming-languages).
