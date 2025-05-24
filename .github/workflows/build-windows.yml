@@ -16,10 +16,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4.4.0
+
+      - name: Setup .konan cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-
 
       - name: Run tests
         run: ./gradlew mingwX64Test
