@@ -18,7 +18,7 @@ public actual fun platformRandom(): Random =
                         null,
                         ptr.reinterpret(),
                         buffer.size.convert(),
-                        2.convert(),
+                        BCRYPT_USE_SYSTEM_PREFERRED_RNG.convert(),
                     )
                 check(status == 0) { "BCryptGenRandom failed with status $status" }
             }
