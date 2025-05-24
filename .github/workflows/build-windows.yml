@@ -1,4 +1,4 @@
-name: Build macOS
+name: Build on Windows
 
 on:
   workflow_call:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build and test on macOS
+    name: Build and test on Windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
