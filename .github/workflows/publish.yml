@@ -34,7 +34,7 @@ jobs:
           log-accepted-android-sdk-licenses: false
 
       - name: Extract release version from tag
-        run: ./version-up.sh --prefix v --stay
+        run: echo version=$(./version-tag.sh) > version.properties
 
       - name: Publish to MavenCentral
         run: ./gradlew publish

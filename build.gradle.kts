@@ -20,7 +20,7 @@ versionPropertiesFile.takeIf { it.exists() }?.let {
 }
 
 group = "io.voxkit.kotlin"
-version = versionProperties["snapshot.version"]?.let { "$it".removePrefix("v") } ?: "0.0.0"
+version = versionProperties["version"] ?: "0.0.0"
 
 logger.lifecycle("Selected version name: ${project.version}")
 
