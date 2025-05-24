@@ -37,7 +37,7 @@ jobs:
         run: echo version=$(./version-tag.sh) > version.properties
 
       - name: Publish to MavenCentral
-        run: ./gradlew publish
+        run: ./gradlew -Dorg.gradle.jvmargs=-Xmx4g publish
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.VOXKIT_MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.VOXKIT_MAVEN_CENTRAL_PASSWORD }}
