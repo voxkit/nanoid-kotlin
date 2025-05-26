@@ -26,7 +26,7 @@ Add nanoid-kotlin as a dependency to your project.
 Gradle:
 ```gradle.kts
 dependencies {
-  implementation("io.voxkit.kotlin:nanoid:1.0")
+  implementation("io.voxkit.kotlin:nanoid:1.1.0")
 }
 ```
 
