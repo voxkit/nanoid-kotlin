@@ -19,7 +19,7 @@
  * under the License.
  */
 
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic

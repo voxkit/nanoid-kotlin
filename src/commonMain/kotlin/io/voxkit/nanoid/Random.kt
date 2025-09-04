@@ -1,4 +1,4 @@
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 /**
  * Platform-agnostic interface for generating random bytes.

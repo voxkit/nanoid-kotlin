@@ -1,4 +1,4 @@
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get
