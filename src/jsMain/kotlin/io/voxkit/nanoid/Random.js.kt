@@ -1,4 +1,4 @@
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 @JsName("crypto")
 private external object Crypto {

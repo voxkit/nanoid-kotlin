@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalForeignApi::class)
 @file:Suppress("ktlint:standard:no-wildcard-imports")
 
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 import kotlinx.cinterop.*
 import platform.windows.*

@@ -1,4 +1,4 @@
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf

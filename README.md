@@ -1,6 +1,6 @@
 # Nano ID for Kotlin Multiplatform
 
-<a href="https://github.com/voxkit/nanoid-kotlin/releases"><img src="https://img.shields.io/maven-central/v/io.voxkit.kotlin/nanoid" alt="Maven central"></a>
+<a href="https://github.com/voxkit/nanoid-kotlin/releases"><img src="https://img.shields.io/maven-central/v/io.voxkit/nanoid" alt="Maven central"></a>
 <img src="https://img.shields.io/badge/Kotlin-2.1.21-%238052ff?logo=kotlin" alt="Kotlin Version">
 <a href="http://www.apache.org/licenses/"><img src="https://img.shields.io/badge/license-Apache_2.0-blue.svg" alt="license Apache 2.0"></a>
 
@@ -26,7 +26,7 @@ Add nanoid-kotlin as a dependency to your project.
 Gradle:
 ```gradle.kts
 dependencies {
-  implementation("io.voxkit.kotlin:nanoid:1.1.0")
+  implementation("io.voxkit:nanoid:1.2.0")
 }
 ```
 

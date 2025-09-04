@@ -19,7 +19,7 @@ versionPropertiesFile.takeIf { it.exists() }?.let {
     versionProperties.load(it.inputStream())
 }
 
-group = "io.voxkit.kotlin"
+group = "io.voxkit"
 version = versionProperties["version"] ?: "0.0.0"
 
 logger.lifecycle("Selected version name: ${project.version}")
@@ -92,7 +92,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.voxkit.kotlin.nanoid"
+    namespace = "io.voxkit.nanoid"
 
     compileSdk =
         libs.versions.compileSdk

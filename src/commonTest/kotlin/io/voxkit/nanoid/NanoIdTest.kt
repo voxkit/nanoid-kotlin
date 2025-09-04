@@ -1,4 +1,4 @@
-package io.voxkit.kotlin.nanoid
+package io.voxkit.nanoid
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
